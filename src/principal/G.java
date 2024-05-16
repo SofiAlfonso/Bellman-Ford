@@ -20,14 +20,24 @@ public class G {
         for (int i=0; i<this.Vsize; i++)
         {
 
+            int d;
             Vertex v= this.V[i];
-            if(v.pi!=null)
+            if(v.d==Integer.MAX_VALUE)
             {
-                System.out.println("v: "+ v.index + " | d: " + v.d+ " | pi: "+ v.pi.index);
+                 d= -1;
             }
             else
             {
-                System.out.println("v: "+ v.index + " | d: " + v.d+ " | pi: "+ null);
+                d= v.d;
+            }
+
+            if(v.pi!=null)
+            {
+                System.out.println("v: "+ v.index + " | d: " + d+ " | pi: "+ v.pi.index);
+            }
+            else
+            {
+                System.out.println("v: "+ v.index + " | d: " + d+ " | pi: "+ null);
             }
 
 

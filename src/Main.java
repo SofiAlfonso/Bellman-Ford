@@ -20,7 +20,7 @@ public class Main
     //Bellman Ford implementación
     public static boolean BF(G G, int s)
     {
-        for(int i=1; i<G.Vsize;i++)
+        for(int i=1; i<=G.Vsize;i++)
         {
             for (int a=0;a<G.Esize;a++)
             {
@@ -71,7 +71,7 @@ public class Main
                 }
                 else
                 {
-                    d=Integer.MAX_VALUE;
+                    d=999999999;
                 }
                 Vertex v= new Vertex(i,d,null);
                 V[i-1]=v;
@@ -104,7 +104,7 @@ public class Main
     {
         System.out.println("_________________________________________________________________________________________________");
         int source=1;
-        G G=leerGrafo("graph1.txt", source);
+        G G=leerGrafo("graphNew.txt", source);
         boolean result=  BF(G,source);
         System.out.println("Para el source " + source +"\n");
         if(result)
