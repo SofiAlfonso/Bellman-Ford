@@ -1,9 +1,9 @@
 package principal;
+import java.util.ArrayList;
 
 public class G {
     public int Vsize;
     public int Esize;
-
     public Vertex[] V;
    public  Edge[] E;
 
@@ -42,5 +42,23 @@ public class G {
 
 
         }
+    }
+    public void printShortestPath (int v,int s)
+    {
+        Vertex llegada= this.V[v-1];
+        System.out.println("\nEl camino más corto entre " + s +" y "+v+" es: ");
+        ArrayList<Integer> camino= new ArrayList<>();
+        while(llegada!=null)
+        {
+            camino.add(llegada.index);
+            llegada=llegada.pi;
+        }
+        for(int i=camino.size()-1;i>=0;i--)
+        {
+            System.out.print("-> "+camino.get(i));
+        }
+        System.out.println(" | Su peso es de: "+this.V[v-1].d);
+
+
     }
 }

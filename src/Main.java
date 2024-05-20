@@ -20,6 +20,20 @@ public class Main
     //Bellman Ford implementación
     public static boolean BF(G G, int s)
     {
+        for (int i=1; i<=G.Vsize;i++)
+        {
+            int d;
+            if (i==s)
+            {
+                d=0; //Distancia del source es 0
+            }
+            else
+            {
+                d=999999999;
+            }
+            G.V[i-1].d=d;
+            G.V[i-1].pi=null;
+        }
         for(int i=1; i<=G.Vsize;i++)
         {
             for (int a=0;a<G.Esize;a++)
@@ -64,16 +78,7 @@ public class Main
             Vertex[] V= new Vertex[Vsize];
             for (int i=1; i<=Vsize;i++)
             {
-                int d;
-                if (i==s)
-                {
-                    d=0; //Distancia del source es 0
-                }
-                else
-                {
-                    d=999999999;
-                }
-                Vertex v= new Vertex(i,d,null);
+                Vertex v= new Vertex(i,999999999,null);
                 V[i-1]=v;
             }
 
@@ -105,8 +110,13 @@ public class Main
         System.out.println("_________________________________________________________________________________________________");
         int source=1;
         G G=leerGrafo("graphNew.txt", source);
+
+        long ti=System.nanoTime();
         boolean result=  BF(G,source);
-        System.out.println("Para el source " + source +"\n");
+        long tf=System.nanoTime();
+
+        System.out.println("Tiempo de esjución (ns):"+(tf-ti));
+        System.out.println("\nPara el source " + source +"\n");
         if(result)
         {
             System.out.println("No tiene ciclos negativos");
@@ -117,6 +127,7 @@ public class Main
         }
         System.out.println("_____________________________");
         G.printVertices();
+        G.printShortestPath(5,source);
 
 
     }
