@@ -1,6 +1,9 @@
 package principal;
 import java.util.ArrayList;
 
+/**
+ * Esta clase se encarga de la creación del grafo, contiene el número de verices, aristas y una lista para estos
+ */
 public class G {
     public int Vsize;
     public int Esize;
@@ -14,6 +17,10 @@ public class G {
         this.V=V;
         this.E=E;
     }
+
+    /**
+     * Imprime el estado final de los vertices luego de la aplicación de Bellman Ford
+     */
 
     public void printVertices()
     {
@@ -43,6 +50,12 @@ public class G {
 
         }
     }
+
+    /**
+     * Imprime el camino más corto entre el nodo source y otro elegido. Lo hace siguiendo los predecesores hasta llegar a null (El predecesor del source)
+     * @param v indice del nodo destino
+     * @param s indice del nodo source
+     */
     public void printShortestPath (int v,int s)
     {
         Vertex llegada= this.V[v-1];

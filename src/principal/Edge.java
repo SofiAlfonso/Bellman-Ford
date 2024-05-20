@@ -1,5 +1,8 @@
 package principal;
 
+/**
+ * Esta clase se encarga de las aristas del vertice, así consigna un nodo origen u, un nodo destino v, y un peso entre ambos.
+ */
 public class Edge
 {
     public Vertex u;

@@ -1,5 +1,8 @@
 package principal;
 
+/**
+ * Esta clase se encarga de los vertices que conforman al nodo, establece para cada uno unindice, la distancia al Source y el predecesor.
+ */
 public class Vertex
 {
     public int index;

@@ -1,11 +1,23 @@
+/**
+ * El programa implementa el algoritmo de bellman ford, usando prgogramación orientada a objetos para analizar el grafos, sus vertices y aristas.
+ *
+ * @author  Tomás Gañan Rivera y Ana Sofia ALfonso Moncada
+ * @since   2024-05-16
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import principal.*;
 
+
 public class Main
 {
-    //Relax
+    /**
+     *  Este método "relaja" una arista, encuentra si el peso del vertice de llegada
+     *  es mayor que el de entrada más el peso de la arista, finaliza otorgandole al vertice de llegada, el menor de los pesos.
+     * @param e  es la arista que recive, con un vertice de llegada, uno de entrada y el peso de la arista
+     */
+
     public static void Relax(Edge e)
     {
         Vertex u= e.u;
@@ -17,7 +29,15 @@ public class Main
             v.pi=u;
         }
     }
-    //Bellman Ford implementación
+
+    /**
+     * Este método relaja cada arista varias veces(el número de vertices-1 veces)
+     * lo que asegura que cada vertice termine con una distancia mínima al Source
+     * para el peor de los casos.
+     * @param G es el grafo sobre el que estamos trabajando
+     * @param s es el nodo source desde el que partimos
+     * @return se retorna verdadero si es que el grafo no contiene ciclos negativos, y falso en caso contrario
+     */
     public static boolean BF(G G, int s)
     {
         for (int i=1; i<=G.Vsize;i++)
@@ -34,7 +54,7 @@ public class Main
             G.V[i-1].d=d;
             G.V[i-1].pi=null;
         }
-        for(int i=1; i<=G.Vsize;i++)
+        for(int i=1; i<G.Vsize;i++)
         {
             for (int a=0;a<G.Esize;a++)
             {
@@ -54,20 +74,14 @@ public class Main
         }
         return true;
     }
-    public static Vertex EncontrarVertice(int u, Vertex[] V)
-    {
-        for (int i=0; i< V.length; i++)
-        {
-            if(V[i].index==u)
-            {
-                return V[i];
-            }
-        }
-        return null;
-    }
 
-   //LeerGrafo
-    public static G leerGrafo(String archivo,int s)
+
+    /**
+     * Este método se encarga de leer el arcivo txt, establecer los vertices y aristas, y el grafo con el cuál se trabajará.
+     * @param archivo Nombre del archivo txt
+     * @return reorna el grafo creado, al método main
+     */
+    public static G leerGrafo(String archivo)
     {
         try {
             Scanner sc = new Scanner(new File(archivo));
@@ -87,9 +101,9 @@ public class Main
             for (int i=0; i<Esize;i++)
             {
                 int u1=sc.nextInt();
-                Vertex u= EncontrarVertice(u1,V);
+                Vertex u= V[u1-1];
                 int v1= sc.nextInt();
-                Vertex v= EncontrarVertice(v1,V);
+                Vertex v= V[v1-1];
                 int w=sc.nextInt();
                 E[i]=new Edge(u,v,w);
             }
@@ -104,18 +118,26 @@ public class Main
         return null;
     }
 
-    //Main
+    /**
+     * Se encarga de manejar paso por paso los métodos relacionados con la lectura del grafo, y el BF
+     * toma también el tiempo de ejecución del algoritmo BF
+     * @param args
+     */
     public static void main(String[] args)
     {
+        //Se lee el grafo
         System.out.println("_________________________________________________________________________________________________");
         int source=1;
-        G G=leerGrafo("graphNew.txt", source);
+        G G=leerGrafo("graph1.txt");
 
+        //Se implementa Bellman Ford
         long ti=System.nanoTime();
         boolean result=  BF(G,source);
         long tf=System.nanoTime();
 
         System.out.println("Tiempo de esjución (ns):"+(tf-ti));
+
+        //Se imprime si hay o no ciclos negativos
         System.out.println("\nPara el source " + source +"\n");
         if(result)
         {
@@ -126,6 +148,8 @@ public class Main
             System.out.println("Si tiene al menos un ciclo negativo");
         }
         System.out.println("_____________________________");
+
+        //Se imprime el estado final de los vertices y la ruta más corta desde el source a otro vertice seleccionado
         G.printVertices();
         G.printShortestPath(5,source);
 
